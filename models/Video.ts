@@ -38,13 +38,6 @@ const videoSchema = new Schema<IVideo>(
   { timestamps: true }
 );
 
-// userSchema.pre("save", async function (next) {
-//   if (this.isModified("password")) {
-//     this.password = await brcrypt.hash(this.password, 10);
-//   }
-//   next();
-// });
-
 const Video = models?.Video || model<IVideo>("User", videoSchema);
 
 export default Video;
