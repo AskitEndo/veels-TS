@@ -15,5 +15,21 @@ export async function POST(request: NextRequest) {
     await connectToDatabase();
 
     const existingUser = await User.findOne({ email });
-  } catch (error) {}
+
+    if (existingUser) {
+      return NextResponse.json(
+        { message: "User already exists" },
+        { status: 400 }
+      );
+    }
+
+    await User.create({ email, password });
+
+    return NextResponse.json(
+      { message: "User registered successfully" },
+      { status: 201 }
+    );
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to register" }, { status: 500 });
+  }
 }
